@@ -1,0 +1,24 @@
+def vigenere_encrypt(plaintext, key):
+    plaintext = plaintext.upper().replace(" ", "")
+    key = key.upper()
+    cipher = ''
+    for i, c in enumerate(plaintext):
+        if c.isalpha():
+            shift = ord(key[i % len(key)]) - ord('A')
+            cipher += chr((ord(c) - ord('A') + shift) % 26 + ord('A'))
+        else:
+            cipher += c
+    return cipher
+
+# Input
+text = input("Enter plaintext: ")
+key = input("Enter key: ")
+
+# Encrypt
+encrypted = vigenere_encrypt(text, key)
+print("Encrypted Text:", encrypted)
+
+
+Enter plaintext: HELLO WORLD
+Enter key: KEY
+Encrypted Text: RIJVSUYVJN
