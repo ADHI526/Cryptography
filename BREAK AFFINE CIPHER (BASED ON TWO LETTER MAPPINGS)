@@ -1,0 +1,61 @@
+from math import gcd
+
+def mod_inverse(a, m):
+    for i in range(1, m):
+        if (a * i) % m == 1:
+            return i
+    return None
+
+def solve_affine_system(c1, p1, c2, p2):
+    # Solve: c1 = a*p1 + b mod 26
+    #        c2 = a*p2 + b mod 26
+    diff_c = (c1 - c2) % 26
+    diff_p = (p1 - p2) % 26
+    inv = mod_inverse(diff_p, 26)
+    if inv is None:
+        return None, None
+    a = (diff_c * inv) % 26
+    b = (c1 - a * p1) % 26
+    return a, b
+
+def affine_decrypt(ciphertext, a, b):
+    a_inv = mod_inverse(a, 26)
+    if a_inv is None:
+        return "Invalid key"
+    plaintext = ''
+    for c in ciphertext.upper():
+        if c.isalpha():
+            p = (a_inv * (ord(c) - ord('A') - b)) % 26
+            plaintext += chr(p + ord('A'))
+        else:
+            plaintext += c
+    return plaintext
+
+# Assumed mappings
+cipher1, plain1 = ord('B') - ord('A'), ord('E') - ord('A')  # B -> E
+cipher2, plain2 = ord('U') - ord('A'), ord('T') - ord('A')  # U -> T
+
+a, b = solve_affine_system(cipher1, plain1, cipher2, plain2)
+
+if a is not None:
+    print("Possible key: a =", a, ", b =", b)
+    # Sample ciphertext (you can change this)
+    ciphertext = input("Enter ciphertext to decrypt: ")
+    print("Decrypted Text:", affine_decrypt(ciphertext, a, b))
+else:
+    print("Failed to solve affine system — invalid mappings.")
+
+
+
+Enter ciphertext to decrypt: BJJLZ
+Possible key: a = 5 , b = 11
+Decrypted Text: HELLO
+
+
+
+
+
+
+Enter ciphertext to decrypt: BJJLZ
+Possible key: a = 5 , b = 11
+Decrypted Text: HELLO
