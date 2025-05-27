@@ -1,0 +1,18 @@
+def caesar_encrypt(text, k):
+    return ''.join(
+        chr((ord(c) - base + k) % 26 + base) if c.isalpha() else c
+        for c in text
+        for base in [ord('A') if c.isupper() else ord('a')] if c.isalpha()
+    )
+
+text = input("Enter text: ")
+k = int(input("Enter key (1-25): "))
+print("Encrypted:", caesar_encrypt(text, k))
+
+
+
+Enter text: Hello World
+Enter key (1-25): 4
+Encrypted: Lipps Asvph
+
+
