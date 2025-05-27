@@ -1,0 +1,18 @@
+def monoalphabetic_encrypt(text, key_map):
+    return ''.join(
+        key_map[c.lower()].upper() if c.isupper() else key_map.get(c, c)
+        if c.isalpha() else c for c in text
+    )
+
+# Example key: a shuffled alphabet (must be 26 unique letters)
+key = "QWERTYUIOPASDFGHJKLZXCVBNM".lower()
+plain_alpha = "abcdefghijklmnopqrstuvwxyz"
+key_map = dict(zip(plain_alpha, key))
+
+text = input("Enter plaintext: ")
+encrypted = monoalphabetic_encrypt(text, key_map)
+print("Encrypted:", encrypted)
+
+
+Enter plaintext: hello world
+Encrypted: itssg vgksr
