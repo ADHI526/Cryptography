@@ -1,0 +1,22 @@
+def decrypt_substitution(ciphertext, cipher_alphabet, plain_alphabet):
+    mapping = dict(zip(cipher_alphabet, plain_alphabet))
+    plaintext = ""
+
+    for char in ciphertext:
+        if char in mapping:
+            plaintext += mapping[char]
+        else:
+            plaintext += char  # keep unknown characters unchanged
+    return plaintext
+
+# Sample ciphertext (replace with your actual ciphertext)
+ciphertext = """53‡‡†305))6*;4826)4‡.)4‡);806*;48†8¶60))85;;]8*;:‡*8†83 (88)5*†;46(;88*96*?;8)*‡(;485);5*†2:*‡(;4956*2(5*—4)8¶8*;4069285);)6†8)4‡‡;1(‡9;48081;8:8‡1;48†85;4)485†528806*81 (‡9;48;(88;4(‡?34;48)4‡;161;:188;‡?;"""
+
+# Example mapping (you need to customize these based on the actual substitution used)
+cipher_alphabet = "53‡†305)6*;4824.)8068¶85];:83(46?)*5281(9:7—34"
+plain_alphabet  = "ETAONISRHDLUCMWFGYPBVKJXQZabcdefghijklmno"  # must match the length of cipher_alphabet
+
+# Decrypt
+plaintext = decrypt_substitution(ciphertext, cipher_alphabet, plain_alphabet)
+
+print("Decrypted Text:\n", plaintext)
