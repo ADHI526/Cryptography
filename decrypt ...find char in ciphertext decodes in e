@@ -1,0 +1,47 @@
+from collections import Counter
+
+ciphertext = """53‡‡†305))6*;4826)4‡.)4‡);806*;48†8¶60))85;;]8*;:‡*8†83 (88)5*†;46(;88*96*?;8)*‡(;485);5*†2:*‡(;4956*2(5*—4)8¶8*
+;4069285);)6†8)4‡‡;1(‡9;48081;8:8‡1;48†85;4)485†528806*81 (‡9;48;(88;4(‡?34;48)4‡;161;:188;‡?;"""
+
+# Count frequency of each printable symbol
+filtered = [c for c in ciphertext if c.isprintable() and not c.isspace()]
+counter = Counter(filtered)
+
+print("Character Frequency (Top 10):")
+for char, count in counter.most_common(10):
+    print(f"{repr(char)} : {count}")
+
+
+
+
+
+def apply_mapping(text, mapping):
+    return ''.join(mapping.get(c, c) for c in text)
+
+symbol_to_letter = {
+    '8': 'e',
+    '4': 't',
+    '‡': 'h',
+    ';': 'i',
+    ')': 's',
+    '*': 'r',
+    '5': 'o',
+    '†': 'n',
+    '6': 'a',
+    '0': 'l',
+    '3': 'd',
+    '2': 'c',
+    '9': 'm',
+    '¶': 'y',
+    '.': 'g',
+    ':': 'f',
+    '?': 'b',
+    '1': 'v',
+    '—': 'p',
+    ']': 'w',
+    '(': 'u',
+}
+
+decrypted = apply_mapping(ciphertext, symbol_to_letter)
+print("Decrypted Message:\n")
+print(decrypted)
